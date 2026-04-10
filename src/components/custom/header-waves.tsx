@@ -1,13 +1,13 @@
 export default function HeaderWaves({ title }: { title: string }) {
   return (
     <div>
-      <div className="bg-rose-200 px-4 pt-20 text-primary-foreground md:px-16 lg:px-32">
-        <h1 className="text-4xl font-bold text-rose-400">{title}</h1>
+      <div className="bg-accent px-4 pt-20 text-accent-foreground md:px-16 lg:px-32">
+        <h1 className="text-4xl font-bold">{title}</h1>
       </div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 320"
-        className="text-rose-200"
+        className="text-accent"
       >
         <path
           fill="currentColor"

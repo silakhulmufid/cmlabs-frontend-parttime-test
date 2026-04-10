@@ -32,10 +32,8 @@ export function Sidebar({ className }: { className?: string }) {
   const { data: ingredientData, isFetching: ingredientIsFetching } =
     useGetIngredientListQuery({ search: tab === "i" ? search : "" })
   const { data: categoryData, isFetching: categoryIsFetching } =
-    useGetCategoryListQuery({ search: tab === "c" ? search : "" })
-  const { data: areaData, isFetching: areaIsFetching } = useGetAreaListQuery({
-    search: tab === "a" ? search : "",
-  })
+    useGetCategoryListQuery()
+  const { data: areaData, isFetching: areaIsFetching } = useGetAreaListQuery()
 
   const isLoading = ingredientIsFetching || categoryIsFetching || areaIsFetching
 
@@ -59,6 +57,7 @@ export function Sidebar({ className }: { className?: string }) {
 
   const handleSearch = debounce((value: string) => {
     setSearch(value)
+    setMaxData(20)
   }, 500)
 
   return (
@@ -85,15 +84,17 @@ export function Sidebar({ className }: { className?: string }) {
           ))}
         </TabsList>
       </Tabs>
-      <InputGroup className="w-full bg-white">
-        <InputGroupInput
-          placeholder="Search..."
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-        <InputGroupAddon>
-          <Search />
-        </InputGroupAddon>
-      </InputGroup>
+      {tab === "i" && (
+        <InputGroup className="w-full bg-white">
+          <InputGroupInput
+            placeholder="Search..."
+            onChange={(e) => handleSearch(e.target.value)}
+          />
+          <InputGroupAddon>
+            <Search />
+          </InputGroupAddon>
+        </InputGroup>
+      )}
       {isLoading && (
         <div className="grid grid-cols-2 gap-2">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -125,7 +126,7 @@ export function Sidebar({ className }: { className?: string }) {
             ))}
         {!isLoading &&
           tab === "c" &&
-          categoryData?.meals
+          categoryData?.categories
             .filter((_, i) => i < maxData)
             .map((category, i) => (
               <ContentCard
@@ -136,6 +137,7 @@ export function Sidebar({ className }: { className?: string }) {
                   dispatch(setMealFilter({ filterBy: "c", filterValue: category.strCategory }))
                   dispatch(setMealMaxData(20))
                 }}
+                image={category.strCategoryThumb}
                 classnames={{
                   image: "aspect-2/1",
                   textContainer: "p-2",
@@ -167,10 +169,12 @@ export function Sidebar({ className }: { className?: string }) {
           (tab === "i"
             ? ingredientData?.meals.length || 0
             : tab === "c"
-              ? categoryData?.meals.length || 0
+              ? categoryData?.categories.length || 0
               : areaData?.meals.length || 0) > maxData && (
             <Button
-              className="col-span-2"
+              variant="outline"
+              className="col-span-2 border-none text-rose-600 hover:text-rose-600"
+
               onClick={() => setMaxData(maxData + 20)}
             >
               Tampilkan lebih banyak

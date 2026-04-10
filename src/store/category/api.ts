@@ -10,9 +10,9 @@ export const categoryApi = createApi({
   }),
   tagTypes: ["category"],
   endpoints: (builder) => ({
-    getCategoryList: builder.query<CategoryListResponse, { search: string } | void>({
+    getCategoryList: builder.query<CategoryListResponse, void>({
       query: (params) =>
-        `${API_BASE_URL}/list.php?c=${encodeURIComponent(params?.search || "")}`,
+        `${API_BASE_URL}/categories.php`,
       providesTags: ["category"],
     }),
   }),

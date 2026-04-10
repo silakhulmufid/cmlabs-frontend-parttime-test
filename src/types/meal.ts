@@ -70,8 +70,7 @@ export interface ModifiedMealData {
   strMealThumb: string
   strTags: string | null
   strYoutube: string
-  strIngredient: string[]
-  strMeasure: string[]
+  ingredients: string[]
   strSource: string
   strImageSource: string | null
   strCreativeCommonsConfirmed: string | null

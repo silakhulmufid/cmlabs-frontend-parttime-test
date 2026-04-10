@@ -10,9 +10,9 @@ export const areaApi = createApi({
   }),
   tagTypes: ["area"],
   endpoints: (builder) => ({
-    getAreaList: builder.query<AreaListResponse, { search: string } | void>({
+    getAreaList: builder.query<AreaListResponse, void>({
       query: (params) =>
-        `${API_BASE_URL}/list.php?a=${encodeURIComponent(params?.search || "")}`,
+        `${API_BASE_URL}/list.php?a=`,
       providesTags: ["area"],
     }),
   }),

@@ -27,7 +27,6 @@ export default function Home() {
     <div className="relative flex min-h-screen">
       {filter.filterValue && (
         <Button
-          variant="secondary"
           size="icon"
           className="absolute top-4 left-4 cursor-pointer"
           onClick={() => {
