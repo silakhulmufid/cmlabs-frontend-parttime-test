@@ -28,7 +28,7 @@ export default function Home() {
       {filter.filterValue && (
         <Button
           size="icon"
-          className="absolute top-4 left-4 cursor-pointer"
+          className="absolute top-4 right-4 cursor-pointer"
           onClick={() => {
             dispatch(setMealFilter({ filterBy: "i", filterValue: "" }))
             dispatch(setMealMaxData(20))

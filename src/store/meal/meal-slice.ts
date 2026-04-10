@@ -38,9 +38,6 @@ export const mealSlice = createSlice({
 export const { setMealFilter, setMealMaxData } = mealSlice.actions
 
 // Selectors
-export const selectMealFilter = (state: RootState) => ({
-  filterBy: state.meal.filter.filterBy,
-  filterValue: state.meal.filter.filterValue,
-})
+export const selectMealFilter = (state: RootState) => state.meal.filter
 
 export const selectMealMaxData = (state: RootState) => state.meal.maxData
