@@ -75,7 +75,7 @@ export function Content(props: ContentCardProps) {
       />
       <div
         className={cn(
-          "absolute inset-0 flex items-center justify-center rounded-xl bg-black/40 transition-all duration-300 group-hover:bg-black/60 group-hover:backdrop-blur-sm",
+          "absolute inset-0 flex items-center justify-center rounded-xl bg-black/40 transition-all duration-300 group-hover:bg-black/60",
           props.classnames?.textContainer
         )}
       >
