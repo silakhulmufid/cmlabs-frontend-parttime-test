@@ -68,7 +68,7 @@ export function Sidebar({ className }: { className?: string }) {
       )}
     >
       <Link href="/">
-        <h1 className="text-2xl font-bold text-white mb-4">GoGomeals</h1>
+        <h1 className="text-2xl font-bold text-white mb-4">GoGoMeals</h1>
       </Link>
       <Tabs defaultValue="i" onValueChange={setTab}>
         <TabsList>

@@ -2,13 +2,15 @@
 
 import HeaderWavesImage from "@/components/custom/header-waves-image"
 import { modifiedMealHelper } from "@/lib/meal"
-import { useGetMealDetailQuery } from "@/store/meal/api"
+import { MealDetailResponse } from "@/types/meal"
 
-export default function MealDetail(params: { id: string }) {
-  const { data, isFetching } = useGetMealDetailQuery(params.id, {
-    refetchOnMountOrArgChange: true,
-  })
-  const modifiedData = data?.meals.map((item) => modifiedMealHelper(item))[0]
+export default function MealDetail(params: {
+  id: string
+  data: MealDetailResponse | null
+}) {
+  const modifiedData = params.data?.meals.map((item) =>
+    modifiedMealHelper(item)
+  )[0]
 
   return (
     <div className="relative flex min-h-screen">
@@ -30,7 +32,9 @@ export default function MealDetail(params: { id: string }) {
             </div>
             <div className="col-span-2">
               <h2 className="mb-4 text-2xl font-bold">Instructions</h2>
-              <p className="whitespace-pre-line">{modifiedData?.strInstructions}</p>
+              <p className="whitespace-pre-line">
+                {modifiedData?.strInstructions}
+              </p>
             </div>
           </div>
           <div className="">

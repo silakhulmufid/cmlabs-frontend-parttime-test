@@ -4,12 +4,12 @@ import { Metadata } from "next"
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   return {
-    title: "GOGOMEALS",
+    title: "GoGoMeals",
     description: "Home page description",
     openGraph: {
-      title: "GOGOMEALS",
+      title: "GoGoMeals",
       description: "Home page description",
-      siteName: "GOGOMEALS",
+      siteName: "GoGoMeals",
       locale: "en_US",
       type: "website",
       url: `${BASE_URL}`,
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata | undefined> {
     },
     twitter: {
       card: "summary_large_image",
-      title: "GOGOMEALS",
+      title: "GoGoMeals",
       description: "Home page description",
       images: [],
     },
