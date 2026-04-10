@@ -20,9 +20,9 @@ export default function MealDetail(params: {
           description={modifiedData?.strArea}
           imageUrl={modifiedData?.strMealThumb || ""}
         />
-        <div className="space-y-10 px-20 pb-20">
-          <div className="grid grid-cols-3">
-            <div className="col-span-1">
+        <div className="space-y-10 px-4 pb-20 md:px-20">
+          <div className="grid grid-cols-3 gap-10">
+            <div className="col-span-3 md:col-span-1">
               <h2 className="mb-4 text-2xl font-bold">Ingredients</h2>
               <ul className="list-disc pl-5">
                 {modifiedData?.ingredients.map((ingredient, i) => (
@@ -30,21 +30,20 @@ export default function MealDetail(params: {
                 ))}
               </ul>
             </div>
-            <div className="col-span-2">
+            <div className="col-span-3 md:col-span-2">
               <h2 className="mb-4 text-2xl font-bold">Instructions</h2>
               <p className="whitespace-pre-line">
                 {modifiedData?.strInstructions}
               </p>
             </div>
           </div>
-          <div className="">
+          <div>
             <h2 className="mb-4 text-2xl font-bold">Video Tutorial</h2>
             {modifiedData?.strYoutube ? (
               <iframe
-                width="560"
-                height="315"
+                className="aspect-video w-full rounded-lg"
                 src={`https://www.youtube.com/embed/${modifiedData.strYoutube.split("v=")[1]}`}
-                title="YouTube video player"
+                title={modifiedData.strMeal}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

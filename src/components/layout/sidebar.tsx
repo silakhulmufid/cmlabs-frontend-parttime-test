@@ -21,6 +21,7 @@ import { setMealFilter, setMealMaxData } from "@/store/meal/meal-slice"
 import { useDispatch } from "react-redux"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { setToggleSidebar } from "@/store/util/util-slice"
 
 export function Sidebar({ className }: { className?: string }) {
   const [tab, setTab] = useState<string>("i")
@@ -63,7 +64,7 @@ export function Sidebar({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "fixed inset-x-0 left-0 h-screen w-80 space-y-4 overflow-y-auto bg-rose-400 p-4 shadow-lg",
+        "fixed inset-x-0 left-0 h-screen w-80 space-y-4 overflow-y-auto bg-rose-400 p-4 shadow-lg z-[100]",
         className
       )}
     >
@@ -115,6 +116,7 @@ export function Sidebar({ className }: { className?: string }) {
                   router.push("/")
                   dispatch(setMealFilter({ filterBy: "i", filterValue: ingredient.strIngredient }))
                   dispatch(setMealMaxData(20))
+                  dispatch(setToggleSidebar(false))
                 }}
                 image={ingredient.strThumb}
                 classnames={{
@@ -136,6 +138,7 @@ export function Sidebar({ className }: { className?: string }) {
                   router.push("/")
                   dispatch(setMealFilter({ filterBy: "c", filterValue: category.strCategory }))
                   dispatch(setMealMaxData(20))
+                  dispatch(setToggleSidebar(false))
                 }}
                 image={category.strCategoryThumb}
                 classnames={{
@@ -157,6 +160,7 @@ export function Sidebar({ className }: { className?: string }) {
                   router.push("/")
                   dispatch(setMealFilter({ filterBy: "a", filterValue: area.strArea }))
                   dispatch(setMealMaxData(20))
+                  dispatch(setToggleSidebar(false))
                 }}
                 classnames={{
                   image: "aspect-2/1",

@@ -3,6 +3,7 @@ import { BASE_URL } from "@/constants"
 import { getMealDetail } from "@/fetch/meal"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
+import Script from "next/script"
 
 export async function generateMetadata(props: {
   params: Promise<{ id: string }>
@@ -77,5 +78,15 @@ export default async function MealDetailPage(props: {
     },
   }
 
-  return <MealDetail id={id} data={mealData} />
+  return (
+    <>
+      <Script
+        id="json-ld"
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <MealDetail id={id} data={mealData} />
+    </>
+  )
 }
