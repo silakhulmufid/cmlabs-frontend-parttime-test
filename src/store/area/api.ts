@@ -1,7 +1,6 @@
-
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { API_BASE_URL } from "@/constants"
 import { AreaListResponse } from "@/types/area"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const areaApi = createApi({
   reducerPath: "areaApi",
@@ -11,8 +10,7 @@ export const areaApi = createApi({
   tagTypes: ["area"],
   endpoints: (builder) => ({
     getAreaList: builder.query<AreaListResponse, void>({
-      query: (params) =>
-        `${API_BASE_URL}/list.php?a=`,
+      query: (params) => `${API_BASE_URL}/list.php?a=`,
       providesTags: ["area"],
     }),
   }),

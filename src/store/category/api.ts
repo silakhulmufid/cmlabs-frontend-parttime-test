@@ -1,7 +1,6 @@
-
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { API_BASE_URL } from "@/constants"
 import { CategoryListResponse } from "@/types/category"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
@@ -11,8 +10,7 @@ export const categoryApi = createApi({
   tagTypes: ["category"],
   endpoints: (builder) => ({
     getCategoryList: builder.query<CategoryListResponse, void>({
-      query: (params) =>
-        `${API_BASE_URL}/categories.php`,
+      query: (params) => `${API_BASE_URL}/categories.php`,
       providesTags: ["category"],
     }),
   }),

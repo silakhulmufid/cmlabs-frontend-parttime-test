@@ -1,20 +1,21 @@
 # GoGoMeals
 
 A Next.js–based recipe catalog that explores data from TheMealDB. Users can:
+
 - Browse meal lists and incrementally load more items.
 - Filter by Ingredient, Category, or Area via an interactive sidebar (with debounced search for Ingredients).
 - View a full recipe detail page with ingredients, instructions, images, and YouTube video, complete with SEO metadata and JSON‑LD.
 
 ## Tech Stack
 
-| Category       | Technology |
-|----------------|------------|
-| Framework      | Next.js 16 (App Router), React 19 |
-| Language       | TypeScript |
-| Styling        | Tailwind CSS v4, shadcn/ui, Radix UI Primitives |
-| State & Data   | Redux Toolkit, RTK Query, react‑redux |
-| Utilities      | motion (animations), lodash (debounce), lucide‑react (icons), tailwind‑merge |
-| Code Quality   | ESLint 9 + eslint-config-next, Prettier (+ sort/organize imports) |
+| Category     | Technology                                                                   |
+| ------------ | ---------------------------------------------------------------------------- |
+| Framework    | Next.js 16 (App Router), React 19                                            |
+| Language     | TypeScript                                                                   |
+| Styling      | Tailwind CSS v4, shadcn/ui, Radix UI Primitives                              |
+| State & Data | Redux Toolkit, RTK Query, react‑redux                                        |
+| Utilities    | motion (animations), lodash (debounce), lucide‑react (icons), tailwind‑merge |
+| Code Quality | ESLint 9 + eslint-config-next, Prettier (+ sort/organize imports)            |
 
 ## Project Structure
 
@@ -78,13 +79,13 @@ pnpm start
 
 Available scripts:
 
-| Script   | Command              | Description                    |
-|----------|----------------------|--------------------------------|
-| dev      | next dev             | Start the dev server           |
-| build    | next build           | Build for production           |
-| start    | next start           | Start the production server    |
-| lint     | eslint               | Run linting                    |
-| format   | prettier --write .   | Format the entire codebase     |
+| Script | Command            | Description                 |
+| ------ | ------------------ | --------------------------- |
+| dev    | next dev           | Start the dev server        |
+| build  | next build         | Build for production        |
+| start  | next start         | Start the production server |
+| lint   | eslint             | Run linting                 |
+| format | prettier --write . | Format the entire codebase  |
 
 > npm alternative: replace `pnpm` with `npm run`/`npm i` as needed.
 

@@ -9,7 +9,7 @@ import { utilSlice } from "./util/util-slice"
 export const rootReducer = combineReducers({
   meal: mealSlice.reducer,
   util: utilSlice.reducer,
-  [areaApi.reducerPath]: areaApi.reducer,   
+  [areaApi.reducerPath]: areaApi.reducer,
   [categoryApi.reducerPath]: categoryApi.reducer,
   [ingredientApi.reducerPath]: ingredientApi.reducer,
   [mealApi.reducerPath]: mealApi.reducer,

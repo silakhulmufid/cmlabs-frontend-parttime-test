@@ -15,7 +15,7 @@ const initialState: MealStore = {
     filterBy: "i",
     filterValue: "",
   },
-  maxData: 20
+  maxData: 20,
 }
 
 export const mealSlice = createSlice({
@@ -31,7 +31,7 @@ export const mealSlice = createSlice({
     },
     setMealMaxData: (state, action: PayloadAction<number>) => {
       state.maxData = action.payload
-    }
+    },
   },
 })
 

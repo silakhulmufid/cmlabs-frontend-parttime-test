@@ -19,5 +19,4 @@ export async function getMealDetail({
   }
 
   return response.json()
-
 }

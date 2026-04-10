@@ -25,7 +25,12 @@ export default function ClientSideLayout({
           !isSidebarOpen && "-translate-x-[100%]"
         )}
       />
-      <div className={cn("relative flex-1 ml-0 translate-all duration-200", isSidebarOpen && "lg:ml-80")}>
+      <div
+        className={cn(
+          "translate-all relative ml-0 flex-1 duration-200",
+          isSidebarOpen && "lg:ml-80"
+        )}
+      >
         <Button
           size="icon-lg"
           className="absolute top-4 left-4 z-[90] cursor-pointer"

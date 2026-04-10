@@ -22,12 +22,15 @@ export interface ContentCardProps extends Omit<
 }
 
 export default function ContentCard(props: ContentCardProps) {
-  const {classnames, ...motionProps} = props
+  const { classnames, ...motionProps } = props
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: props.index ? 0.4 + props.index * 0.1 : 0 }}
+      transition={{
+        duration: 0.5,
+        delay: props.index ? 0.4 + props.index * 0.1 : 0,
+      }}
       viewport={{ once: true }}
       className={cn(classnames?.motion)}
       {...motionProps}
@@ -45,7 +48,7 @@ export default function ContentCard(props: ContentCardProps) {
       ) : (
         <button
           className={cn(
-            "w-full group relative overflow-hidden rounded-xl cursor-pointer",
+            "group relative w-full cursor-pointer overflow-hidden rounded-xl",
             props.classnames?.container
           )}
           onClick={props.onClick}
@@ -78,7 +81,7 @@ export function Content(props: ContentCardProps) {
       >
         <h3
           className={cn(
-            "line-clamp-2 text-center text-2xl font-semibold text-white group-hover:scale-110 transition-transform duration-300",
+            "line-clamp-2 text-center text-2xl font-semibold text-white transition-transform duration-300 group-hover:scale-110",
             props.classnames?.text
           )}
         >

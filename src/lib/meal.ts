@@ -1,15 +1,15 @@
-import { MealDetail, ModifiedMealData } from "@/types/meal";
+import { MealDetail, ModifiedMealData } from "@/types/meal"
 
 export const modifiedMealHelper = (meal: MealDetail): ModifiedMealData => {
-  const combinedIngredients: string[] = [];
+  const combinedIngredients: string[] = []
 
   for (let i = 1; i <= 20; i++) {
-    const ingredient = meal[`strIngredient${i}` as keyof MealDetail];
-    const measure = meal[`strMeasure${i}` as keyof MealDetail];
+    const ingredient = meal[`strIngredient${i}` as keyof MealDetail]
+    const measure = meal[`strMeasure${i}` as keyof MealDetail]
 
     if (ingredient && ingredient.trim() !== "") {
-      const combined = `${measure || ""} ${ingredient}`.trim();
-      combinedIngredients.push(combined);
+      const combined = `${measure || ""} ${ingredient}`.trim()
+      combinedIngredients.push(combined)
     }
   }
 
@@ -28,5 +28,5 @@ export const modifiedMealHelper = (meal: MealDetail): ModifiedMealData => {
     strCreativeCommonsConfirmed: meal.strCreativeCommonsConfirmed,
     dateModified: meal.dateModified,
     ingredients: combinedIngredients,
-  };
-};
+  }
+}

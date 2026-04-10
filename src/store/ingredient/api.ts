@@ -1,7 +1,6 @@
-
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { API_BASE_URL } from "@/constants"
 import { IngredientListResponse } from "@/types/ingredient"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const ingredientApi = createApi({
   reducerPath: "ingredientApi",
@@ -10,7 +9,10 @@ export const ingredientApi = createApi({
   }),
   tagTypes: ["ingredient"],
   endpoints: (builder) => ({
-    getIngredientList: builder.query<IngredientListResponse, { search: string } | void>({
+    getIngredientList: builder.query<
+      IngredientListResponse,
+      { search: string } | void
+    >({
       query: (params) =>
         `${API_BASE_URL}/list.php?i=${encodeURIComponent(params?.search || "")}`,
       providesTags: ["ingredient"],

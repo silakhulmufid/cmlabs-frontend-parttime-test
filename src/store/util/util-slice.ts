@@ -23,4 +23,5 @@ export const utilSlice = createSlice({
 export const { setToggleSidebar } = utilSlice.actions
 
 // Selectors
-export const selectToggleSidebar = (state: RootState) => state.util.isSidebarOpen
+export const selectToggleSidebar = (state: RootState) =>
+  state.util.isSidebarOpen

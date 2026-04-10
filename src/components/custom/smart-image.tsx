@@ -81,7 +81,9 @@ export default function SmartImage(props: SmartImageProps) {
           }}
         />
       ) : (
-        <ImageIcon className={cn(hideImageFallback ? "hidden" : "", className)} />
+        <ImageIcon
+          className={cn(hideImageFallback ? "hidden" : "", className)}
+        />
       )}
     </div>
   )
