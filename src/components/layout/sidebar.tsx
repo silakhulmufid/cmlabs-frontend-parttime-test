@@ -181,7 +181,7 @@ export function Sidebar({ className }: { className?: string }) {
 
               onClick={() => setMaxData(maxData + 20)}
             >
-              Tampilkan lebih banyak
+              Load More
             </Button>
           )}
       </div>

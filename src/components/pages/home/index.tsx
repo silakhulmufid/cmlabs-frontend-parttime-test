@@ -74,7 +74,7 @@ export default function Home() {
               size="lg"
               onClick={() => dispatch(setMealMaxData(maxData + 20))}
             >
-              Tampilkan lebih banyak
+              Load more
             </Button>
           )}
         </div>
