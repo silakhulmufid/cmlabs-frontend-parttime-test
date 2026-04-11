@@ -20,23 +20,37 @@ import { setToggleSidebar } from "@/store/util/util-slice"
 import { debounce } from "lodash"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { useDispatch } from "react-redux"
 
 export function Sidebar({ className }: { className?: string }) {
   const [tab, setTab] = useState<string>("i")
-  const [search, setSearch] = useState<string>("")
+  const [inputSearch, setInputSearch] = useState<string>("")
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("")
   const [maxData, setMaxData] = useState<number>(20)
   const dispatch = useDispatch()
   const router = useRouter()
 
   const { data: ingredientData, isFetching: ingredientIsFetching } =
-    useGetIngredientListQuery({ search: tab === "i" ? search : "" })
+    useGetIngredientListQuery()
   const { data: categoryData, isFetching: categoryIsFetching } =
     useGetCategoryListQuery()
   const { data: areaData, isFetching: areaIsFetching } = useGetAreaListQuery()
 
   const isLoading = ingredientIsFetching || categoryIsFetching || areaIsFetching
+
+  const filteredIngredientData =
+    ingredientData?.meals.filter((item) =>
+      item.strIngredient.toLowerCase().includes(debouncedSearch.toLowerCase())
+    ) || []
+  const filteredCategoryData =
+    categoryData?.categories.filter((item) =>
+      item.strCategory.toLowerCase().includes(debouncedSearch.toLowerCase())
+    ) || []
+  const filteredAreaData =
+    areaData?.meals.filter((item) =>
+      item.strArea.toLowerCase().includes(debouncedSearch.toLowerCase())
+    ) || []
 
   const tabItems = [
     {
@@ -56,10 +70,45 @@ export function Sidebar({ className }: { className?: string }) {
     },
   ]
 
-  const handleSearch = debounce((value: string) => {
-    setSearch(value)
+  const debouncedUpdateSearch = useMemo(
+    () =>
+      debounce((value: string) => {
+        setDebouncedSearch(value)
+        setMaxData(20)
+      }, 500),
+    []
+  )
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    setInputSearch(val)
+    debouncedUpdateSearch(val)
+  }
+
+  const handleTabChange = (value: string) => {
+    setTab(value)
+    setInputSearch("")
+    setDebouncedSearch("")
     setMaxData(20)
-  }, 500)
+  }
+
+  const handleClickItem = ({
+    filterBy,
+    filterValue,
+  }: {
+    filterBy: "i" | "c" | "a"
+    filterValue: string
+  }) => {
+    router.push("/")
+    dispatch(
+      setMealFilter({
+        filterBy,
+        filterValue,
+      })
+    )
+    dispatch(setMealMaxData(20))
+    dispatch(setToggleSidebar(false))
+  }
 
   return (
     <div
@@ -71,7 +120,7 @@ export function Sidebar({ className }: { className?: string }) {
       <Link href="/">
         <h1 className="mb-4 text-2xl font-bold text-white">GoGoMeals</h1>
       </Link>
-      <Tabs defaultValue="i" onValueChange={setTab}>
+      <Tabs defaultValue="i" onValueChange={handleTabChange}>
         <TabsList>
           {tabItems.map((item) => (
             <TabsTrigger
@@ -85,17 +134,16 @@ export function Sidebar({ className }: { className?: string }) {
           ))}
         </TabsList>
       </Tabs>
-      {tab === "i" && (
-        <InputGroup className="w-full bg-white">
-          <InputGroupInput
-            placeholder="Search..."
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-          <InputGroupAddon>
-            <Search />
-          </InputGroupAddon>
-        </InputGroup>
-      )}
+      <InputGroup className="w-full bg-white">
+        <InputGroupInput
+          value={inputSearch}
+          placeholder="Search..."
+          onChange={handleInputChange}
+        />
+        <InputGroupAddon>
+          <Search />
+        </InputGroupAddon>
+      </InputGroup>
       {isLoading && (
         <div className="grid grid-cols-2 gap-2">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -106,23 +154,18 @@ export function Sidebar({ className }: { className?: string }) {
       <div className="grid grid-cols-2 gap-x-2">
         {!isLoading &&
           tab === "i" &&
-          ingredientData?.meals
+          filteredIngredientData
             .filter((_, i) => i < maxData)
             .map((ingredient, i) => (
               <ContentCard
                 key={i}
                 title={ingredient.strIngredient}
-                onClick={() => {
-                  router.push("/")
-                  dispatch(
-                    setMealFilter({
-                      filterBy: "i",
-                      filterValue: ingredient.strIngredient,
-                    })
-                  )
-                  dispatch(setMealMaxData(20))
-                  dispatch(setToggleSidebar(false))
-                }}
+                onClick={() =>
+                  handleClickItem({
+                    filterBy: "i",
+                    filterValue: ingredient.strIngredient,
+                  })
+                }
                 image={ingredient.strThumb}
                 classnames={{
                   image: "aspect-2/1",
@@ -133,23 +176,18 @@ export function Sidebar({ className }: { className?: string }) {
             ))}
         {!isLoading &&
           tab === "c" &&
-          categoryData?.categories
+          filteredCategoryData
             .filter((_, i) => i < maxData)
             .map((category, i) => (
               <ContentCard
                 key={i}
                 title={category.strCategory}
-                onClick={() => {
-                  router.push("/")
-                  dispatch(
-                    setMealFilter({
-                      filterBy: "c",
-                      filterValue: category.strCategory,
-                    })
-                  )
-                  dispatch(setMealMaxData(20))
-                  dispatch(setToggleSidebar(false))
-                }}
+                onClick={() =>
+                  handleClickItem({
+                    filterBy: "c",
+                    filterValue: category.strCategory,
+                  })
+                }
                 image={category.strCategoryThumb}
                 classnames={{
                   image: "aspect-2/1",
@@ -160,20 +198,18 @@ export function Sidebar({ className }: { className?: string }) {
             ))}
         {!isLoading &&
           tab === "a" &&
-          areaData?.meals
+          filteredAreaData
             .filter((_, i) => i < maxData)
             .map((area, i) => (
               <ContentCard
                 key={i}
                 title={area.strArea}
-                onClick={() => {
-                  router.push("/")
-                  dispatch(
-                    setMealFilter({ filterBy: "a", filterValue: area.strArea })
-                  )
-                  dispatch(setMealMaxData(20))
-                  dispatch(setToggleSidebar(false))
-                }}
+                onClick={() =>
+                  handleClickItem({
+                    filterBy: "a",
+                    filterValue: area.strArea,
+                  })
+                }
                 classnames={{
                   image: "aspect-2/1",
                   textContainer: "p-2",
@@ -182,11 +218,19 @@ export function Sidebar({ className }: { className?: string }) {
               />
             ))}
         {!isLoading &&
+          ((tab === "i" && !filteredIngredientData.length) ||
+            (tab === "c" && !filteredCategoryData.length) ||
+            (tab === "a" && !filteredAreaData.length)) && (
+            <div className="col-span-2 flex items-center justify-center rounded-xl h-28 bg-rose-100">
+              <h2 className="font-medium text-rose-400">No Data Found</h2>
+            </div>
+          )}
+        {!isLoading &&
           (tab === "i"
-            ? ingredientData?.meals.length || 0
+            ? filteredIngredientData.length || 0
             : tab === "c"
-              ? categoryData?.categories.length || 0
-              : areaData?.meals.length || 0) > maxData && (
+              ? filteredCategoryData.length || 0
+              : filteredAreaData.length || 0) > maxData && (
             <Button
               variant="outline"
               className="col-span-2 border-none text-rose-600 hover:text-rose-600"
