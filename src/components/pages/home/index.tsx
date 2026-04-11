@@ -86,11 +86,12 @@ export default function Home() {
           <InputGroup className="col-span-full mb-4 h-12 bg-white">
             <InputGroupInput
               value={inputSearch}
-              placeholder="Go Search Your Favorite Meal"
+              placeholder="Go Find Your Favorite Meal"
+              className="placeholder:text-base placeholder:text-medium"
               onChange={handleInputChange}
             />
             <InputGroupAddon className="pr-2 pl-4">
-              <Search />
+              <Search className="size-6" />
             </InputGroupAddon>
             {inputSearch && (
               <InputGroupAddon
