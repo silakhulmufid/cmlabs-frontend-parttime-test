@@ -83,7 +83,7 @@ export default function Home() {
             isSidebarOpen && "lg:grid-cols-3"
           )}
         >
-          <InputGroup className="mb-4 col-span-full h-12 bg-white">
+          <InputGroup className="col-span-full mb-4 h-12 bg-white">
             <InputGroupInput
               value={inputSearch}
               placeholder="Go Search Your Favorite Meal"
@@ -93,7 +93,10 @@ export default function Home() {
               <Search />
             </InputGroupAddon>
             {inputSearch && (
-              <InputGroupAddon align="inline-end" className="pr-4 pl-2">{`${filteredData.length} results`}</InputGroupAddon>
+              <InputGroupAddon
+                align="inline-end"
+                className="pr-4 pl-2"
+              >{`${filteredData.length} results`}</InputGroupAddon>
             )}
           </InputGroup>
           {isLoading &&
