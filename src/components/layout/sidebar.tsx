@@ -117,7 +117,12 @@ export function Sidebar({ className }: { className?: string }) {
         className
       )}
     >
-      <Link href="/">
+      <Link
+        href="/"
+        onClick={() =>
+          dispatch(setMealFilter({ filterBy: "i", filterValue: "" }))
+        }
+      >
         <h1 className="mb-4 text-2xl font-bold text-white">GoGoMeals</h1>
       </Link>
       <Tabs defaultValue="i" onValueChange={handleTabChange}>
@@ -137,7 +142,7 @@ export function Sidebar({ className }: { className?: string }) {
       <InputGroup className="w-full bg-white">
         <InputGroupInput
           value={inputSearch}
-          placeholder="Search..."
+          placeholder={`Search ${tabItems.find((item) => item.value === tab)?.label}`}
           onChange={handleInputChange}
         />
         <InputGroupAddon>
@@ -221,7 +226,7 @@ export function Sidebar({ className }: { className?: string }) {
           ((tab === "i" && !filteredIngredientData.length) ||
             (tab === "c" && !filteredCategoryData.length) ||
             (tab === "a" && !filteredAreaData.length)) && (
-            <div className="col-span-2 flex items-center justify-center rounded-xl h-28 bg-rose-100">
+            <div className="col-span-2 flex h-28 items-center justify-center rounded-xl bg-rose-100">
               <h2 className="font-medium text-rose-400">No Data Found</h2>
             </div>
           )}
